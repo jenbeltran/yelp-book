@@ -17,31 +17,33 @@ router.get('/books', function(req, res) {
 	res.render('books');
 });
 
-//ADD A NEW BOOK
-//NEW route - shows the new book form
-router.get('/books/new', function(req, res) {
-	res.render('newBookForm');
-});
-//TODO://CREATE route - creates the new book and redirects to all books page
-// router.post('/books', function(req, res) {
-// 	res.redirect('/books');
-// });
-
 //SEE BOOK DETAILS
 //SHOW route
 router.get('/books/:id', function(req, res) {
 	res.render('showBookDetails');
 });
 
-//UPDATE A CURRENT BOOK
-//TODO://EDIT route - shows the edit book form
+//ADD A NEW BOOK REVIEW COMMENT
+//NEW route - shows the new comment form
+router.get('/books/new', function(req, res) {
+	res.render('newCommentForm');
+});
+
+//TODO://CREATE route - creates the new book review and redirects to '/books/:id'
+// router.post('/books/:id'', function(req, res) {
+// 	res.redirect('/books/:id);
+// });
+
+//UPDATE A CURRENT BOOK REVIEW
+//TODO://EDIT route - shows the edit book review form
 // router.get('/books/:id', function(req, res) {
 // 	res.render('edit');
 // });
-//TODO://UPDATE route - updates the book and redirects to all books page
 
-//DELETE A CURRENT BOOK
-//TODO://DELETE route - deletes the book and redirects to all books page
+//TODO://UPDATE route - updates the book and redirects to /books/:id' page
+
+//DELETE A CURRENT BOOK REVIEW
+//TODO://DELETE route - deletes the book review and redirects to all books page
 // router.delete('/books/:id', function(req, res) {
 // 	res.redirect('/books');
 // });

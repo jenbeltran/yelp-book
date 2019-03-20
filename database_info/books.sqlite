@@ -1,0 +1,26 @@
+CREATE TABLE books 
+    (
+        book_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        title VARCHAR(100),
+        author_fname VARCHAR(100),
+        author_lname VARCHAR(100),
+        category VARCHAR(100),
+        release_year INTEGER,
+        pages INTEGER,
+        price DECIMAL,
+        picture BLOB
+    );
+
+INSERT INTO books (title, author_fname, author_lname, category, release_year, pages, price, picture)
+VALUES
+("Harry Potter and the Philosophers Stone", 'J.K.', 'Rowling', 'Fiction', 1997, 309, 15.99, "https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg"),
+("Harry Potter and the Chamber of Secrets", 'J.K.', 'Rowling', 'Fiction', 1998, 360, 15.99, "https://upload.wikimedia.org/wikipedia/en/5/5c/Harry_Potter_and_the_Chamber_of_Secrets.jpg"),
+("Harry Potter and the Prizoner of Azkaban", 'J.K.', 'Rowling', 'Fiction', 1999, 380, 15.99, "https://upload.wikimedia.org/wikipedia/en/a/a0/Harry_Potter_and_the_Prisoner_of_Azkaban.jpg"),
+("Harry Potter and the Goblet of Fire", 'J.K.', 'Rowling', 'Fiction', 2000, 400, 18.99, "https://upload.wikimedia.org/wikipedia/en/c/c7/Harry_Potter_and_the_Goblet_of_Fire.jpg"),
+("Harry Potter and the Order of the Phoenix", 'J.K.', 'Rowling', 'Fiction', 2003, 537, 20.99, "https://upload.wikimedia.org/wikipedia/en/7/70/Harry_Potter_and_the_Order_of_the_Phoenix.jpg"),
+("Harry Potter and the Half-blood Prince", 'J.K.', 'Rowling', 'Fiction', 2005, 486, 25.99, "https://upload.wikimedia.org/wikipedia/en/f/f0/Harry_Potter_and_the_Half-Blood_Prince.jpg"),
+("Harry Potter and the Deathly Hallows", 'J.K.', 'Rowling', 'Fiction', 2007, 428, 29.99, "https://upload.wikimedia.org/wikipedia/en/a/a9/Harry_Potter_and_the_Deathly_Hallows.jpg"),
+('The Power of Habit', 'Charles', 'Duhigg', "Psychology", 2012, 371, 21.95, "https://upload.wikimedia.org/wikipedia/en/7/7f/The_Power_of_Habit.jpg"),
+('Wealthing Like Rabbits', 'Robert', 'Brown', "Finance", 2014, 216, 24.95, "https://images-na.ssl-images-amazon.com/images/I/41zQf6R8HbL.jpg");
+
+ 
