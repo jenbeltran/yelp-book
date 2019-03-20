@@ -1,10 +1,17 @@
+.navbar {
+	margin-bottom: 2em;
+}
 .form-title {
 	text-align: center;
-	padding: 2em;
 }
 
 .card {
 	padding: 1em;
+}
+
+.jumbotron {
+	padding: 1em;
+	text-align: center;
 }
 
 #trademark {
