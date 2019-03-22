@@ -1,0 +1,17 @@
+
+<% for (let i = 0; i < bookData.length; i++) {%>
+    <% if(bookData[i].book_id === bookData[i].book_id){ %>
+        <% return %>
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="<%=bookData[i].picture %>" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title"><%= bookData[i].book_id %></h5>
+                <p class="card-text"> Author: <%= bookData[i].author_fname%> <%= bookData[i].author_lname %></p>
+                <p class="card-text"> Category: <%= bookData[i].category%></p>
+                <p class="card-text"> Year Released: <%= bookData[i].release_year%></p>
+                <p class="card-text"> Number of Pages: <%= bookData[i].pages%></p>
+                <p class="card-text"> Price: $ <%= bookData[i].price%> </p>
+            </div>
+</div>
+        <% } %>
+        <% } %>

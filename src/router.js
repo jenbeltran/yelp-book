@@ -32,8 +32,9 @@ router.get('/', function(req, res) {
 //INDEX route
 router.get('/books', (req, res) => {
 	db.all('SELECT * FROM books', function(err, bookData) {
-		// res.render('books/books');
-		res.send(bookData);
+		res.render('books/books', {
+			bookData : bookData
+		});
 	});
 });
 
@@ -57,7 +58,20 @@ router.post('/books', function(req, res) {
 //SEE BOOK DETAILS
 //SHOW route
 router.get('/books/:id', function(req, res) {
-	res.render('books/showBookDetails');
+	db.all('SELECT * FROM books', function(err, bookData) {
+		res.render('books/showBookDetails', {
+			bookData : bookData
+		});
+	});
+});
+
+//test route
+router.get('/test/:id', function(req, res) {
+	db.all('SELECT * FROM books', function(err, bookData) {
+		res.render('test', {
+			bookData : bookData
+		});
+	});
 });
 
 //UPDATE A CURRENT BOOK
