@@ -1,0 +1,41 @@
+<%- include('../partials/header'); -%>
+
+<div class="container form-title">
+    <h1>Add a New Book</h1>
+</div>
+
+<div class="container card bg-light" style="width: 40rem;">
+    <form action="/books" method="POST">
+        <div class="form-group">
+            <label>Book Title</label>
+            <input type="text" name="book[title]" class="form-control" placeholder="Enter book title">
+        </div>
+        <div class="form-group">
+            <label>Author First Name</label>
+            <input type="text" name="book[author_fname]" class="form-control" placeholder="Enter author first name">
+        </div>
+        <div class="form-group">
+            <label>Author Last Name</label>
+            <input type="text" name="book[author_lname]" class="form-control" placeholder="Enter author last name">
+        </div>
+        <div class="form-group">
+            <label>Book Category</label>
+            <input type="text" name="book[category]" class="form-control" placeholder="Ex. Fiction, Fantasy, Business">
+        </div>
+        <div class="form-group">
+            <label>Number of Pages</label>
+            <input type="text" name="book[pages]" class="form-control" placeholder="Enter number">
+        </div>
+        <div class="form-group">
+            <label>Book Price</label>
+            <input type="text" name="book[price]" class="form-control" placeholder="Enter number">
+        </div>
+        <div class="form-group">
+            <label>Book Image</label>
+            <input type="text" name="book[image]" class="form-control" placeholder="Please add image url">
+        </div>    
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<%- include('../partials/footer'); -%>

@@ -4,30 +4,76 @@
 //connecting the required libraries etc.
 const express = require('express');
 const router = express.Router();
+let sqlite3 = require('sqlite3').verbose();
+let db = new sqlite3.Database('database/books.sqlite');
 
+///////////////////////// AUTHENTICATION ROUTES //////////////////////////
+// LOGIN ROUTE
+router.get('/login', function(req, res) {
+	res.render('authentication/login');
+});
+//TODO: check if user is in db, if so, then continue to secret INDEX page
+//if not, then refresh the login page
+
+//REGISTER ROUTE
+router.get('/register', function(req, res) {
+	res.render('authentication/register');
+});
+//TODO: add the user to the db, then continue to secret INDEX page
+
+///////////////////////// BOOK ROUTES //////////////////////////
 //LANDING PAGE
 //INDEX route
 router.get('/', function(req, res) {
-	res.render('landing');
+	res.render('books/landing');
 });
 
 //SEE ALL BOOKS
 //INDEX route
-router.get('/books', function(req, res) {
-	res.render('books');
+router.get('/books', (req, res) => {
+	db.all('SELECT * FROM books', function(err, bookData) {
+		// res.render('books/books');
+		res.send(bookData);
+	});
+});
+
+//ADD A NEW BOOK
+//NEW route - shows the new book form
+router.get('/books/new', function(req, res) {
+	res.render('books/newBookForm');
+});
+
+//CREATE route - creates the new book and redirects to all books page
+router.post('/books', function(req, res) {
+	book.create(req.body.book, (err, newBook) => {
+		if (err) {
+			res.render('books/newBookForm');
+		} else {
+			res.redirect('/books');
+		}
+	});
 });
 
 //SEE BOOK DETAILS
 //SHOW route
 router.get('/books/:id', function(req, res) {
-	res.render('showBookDetails');
+	res.render('books/showBookDetails');
 });
 
+//UPDATE A CURRENT BOOK
+//TODO://EDIT route - shows the edit book form
+
+//TODO://UPDATE route - updates the book and redirects to all books page
+
+//DELETE A CURRENT BOOK
+//TODO://DELETE route - deletes the book and redirects to all books page
+
+//////////////////////////////////////// COMMENT ROUTES ///////////////////////
 //ADD A NEW BOOK REVIEW COMMENT
 //NEW route - shows the new comment form
-router.get('/books/new', function(req, res) {
-	res.render('newCommentForm');
-});
+// router.get('/books/new', function(req, res) {
+// 	res.render('commentForm');
+// });
 
 //TODO://CREATE route - creates the new book review and redirects to '/books/:id'
 // router.post('/books/:id'', function(req, res) {
@@ -47,19 +93,6 @@ router.get('/books/new', function(req, res) {
 // router.delete('/books/:id', function(req, res) {
 // 	res.redirect('/books');
 // });
-
-// LOGIN ROUTE
-router.get('/login', function(req, res) {
-	res.render('login');
-});
-//TODO: check if user is in db, if so, then continue to secret INDEX page
-//if not, then refresh the login page
-
-//REGISTER ROUTE
-router.get('/register', function(req, res) {
-	res.render('register');
-});
-//TODO: add the user to the db, then continue to secret INDEX page
 
 //export
 module.exports = router;
