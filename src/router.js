@@ -2,24 +2,23 @@
 'use strict';
 
 //connecting the required libraries etc.
-const express = require('express');
-const router = express.Router();
-let sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database('database/books.sqlite');
-let bodyParser = require('body-parser');
-
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+let express = require('express'),
+	router = express.Router(),
+	sqlite3 = require('sqlite3').verbose(),
+	db = new sqlite3.Database('database/books.sqlite'),
+	bodyParser = require('body-parser'),
+	urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 ///////////////////////// AUTHENTICATION ROUTES //////////////////////////
 // LOGIN ROUTE
-router.get('/login', function(req, res) {
+router.get('/login', (req, res) => {
 	res.render('authentication/login');
 });
 //TODO: check if user is in db, if so, then continue to secret INDEX page
 //if not, then refresh the login page
 
 //REGISTER ROUTE
-router.get('/register', function(req, res) {
+router.get('/register', (req, res) => {
 	res.render('authentication/register');
 });
 //TODO: add the user to the db, then continue to secret INDEX page
@@ -27,7 +26,7 @@ router.get('/register', function(req, res) {
 ///////////////////////// BOOK ROUTES //////////////////////////
 //LANDING PAGE
 //INDEX route
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
 	res.render('books/landing');
 });
 
@@ -43,12 +42,12 @@ router.get('/books', (req, res) => {
 
 //ADD A NEW BOOK
 //NEW route - shows the new book form
-router.get('/books/new', function(req, res) {
+router.get('/books/new', (req, res) => {
 	res.render('books/newBookForm');
 });
 
 //CREATE route - creates the new book and redirects to all books page
-router.post('/books', urlencodedParser, function(req, res) {
+router.post('/books', urlencodedParser, (req, res) => {
 	db.run(
 		'INSERT INTO books(title, author_fname, author_lname, category, release_year, pages, price, picture) VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
 		[
@@ -67,7 +66,7 @@ router.post('/books', urlencodedParser, function(req, res) {
 
 //SEE BOOK DETAILS
 //SHOW route
-router.get('/books/:id', function(req, res) {
+router.get('/books/:id', (req, res) => {
 	db.all('SELECT * FROM books', function(err, bookData) {
 		res.render('books/showBookDetails', {
 			bookData : bookData
@@ -76,7 +75,7 @@ router.get('/books/:id', function(req, res) {
 });
 
 //test route
-router.get('/test/:id', function(req, res) {
+router.get('/test/:id', (req, res) => {
 	db.all('SELECT * FROM books', function(err, bookData) {
 		res.render('test', {
 			bookData : bookData
