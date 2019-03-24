@@ -6,6 +6,9 @@ const express = require('express');
 const router = express.Router();
 let sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('database/books.sqlite');
+let bodyParser = require('body-parser');
+
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 ///////////////////////// AUTHENTICATION ROUTES //////////////////////////
 // LOGIN ROUTE
@@ -45,14 +48,21 @@ router.get('/books/new', function(req, res) {
 });
 
 //CREATE route - creates the new book and redirects to all books page
-router.post('/books', function(req, res) {
-	book.create(req.body.book, (err, newBook) => {
-		if (err) {
-			res.render('books/newBookForm');
-		} else {
-			res.redirect('/books');
-		}
-	});
+router.post('/books', urlencodedParser, function(req, res) {
+	db.run(
+		'INSERT INTO books(title, author_fname, author_lname, category, release_year, pages, price, picture) VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
+		[
+			req.body.title,
+			req.body.author_fname,
+			req.body.author_lname,
+			req.body.category,
+			req.body.release_year,
+			req.body.pages,
+			req.body.price,
+			req.body.picture
+		]
+	);
+	res.redirect('/books');
 });
 
 //SEE BOOK DETAILS

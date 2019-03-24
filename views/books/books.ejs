@@ -1,14 +1,20 @@
 <%- include('../partials/header'); -%>
 
 <div class="container">
-<div class="jumbotron">
-    <h1 class="display-5">YelpBook</h1>
-    <p class="lead">Your one stop bookshop</p>
-</div>
+    <div class="jumbotron">
+        <h1 class="display-5">YelpBook</h1>
+        <p class="lead">Your one stop bookshop: Shop and review books online</p>
+        <hr class="my-4">
+        <p>Didn't find your book? Add it for review and we'll stock up!</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-md" href="/books/new" role="button">Add a Book</a>
+        </p>
+    </div>
 </div>
 
+<div class="container box">
 <% for(let i=0; i < bookData.length; i++) {%>
-<div class="card" style="width: 18rem;">
+<div class="card col-md-3 col-sm-6" style="width: 18rem;">
     <img class="card-img-top" src="<%=bookData[i].picture %>" alt="Card image cap">
     <div class="card-body">
         <h5 class="card-title"><%= bookData[i].title %></h5>
@@ -17,6 +23,8 @@
     </div>
 </div>
 <% } %>
+</div>
+
 
 
 

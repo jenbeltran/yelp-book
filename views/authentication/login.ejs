@@ -1,11 +1,11 @@
 <%- include('../partials/header'); -%>
 
 <div class="container form-title">
-<h1>Login</h1>
+    <h1>Login</h1>
 </div>
 
 <div class="container card bg-light" style="width: 40rem;">
-<form> 
+<form action="/books"> 
     <div class="form-group">
         <label>Email address</label>
         <input type="email" class="form-control" aria-describedby="emailHelp"
@@ -19,7 +19,8 @@
         <input type="checkbox" class="form-check-input">
         <label class="form-check-label">Remember Me</label>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    <p><a href="/register">Don't have an account? Register now!</a></p>
 </form>
 </div>
 
