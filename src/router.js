@@ -87,8 +87,8 @@ router.get('/books/:id/edit', urlencodedParser, (req, res) => {
 	});
 });
 
-//TODO://UPDATE route - updates the book and redirects to all books page
-router.post('/books/:id', urlencodedParser, (req, res) => {
+//UPDATE route - updates the book and redirects to all books page
+router.put('/books/:id', urlencodedParser, (req, res) => {
 	db.run(
 		'UPDATE books SET title =?, author_fname=?, author_lname=?, category=?, release_year=?, pages=?, price=?, picture=? WHERE book_id=?',
 		[
@@ -99,14 +99,19 @@ router.post('/books/:id', urlencodedParser, (req, res) => {
 			req.body.release_year,
 			req.body.pages,
 			req.body.price,
-			req.body.picture
+			req.body.picture,
+			req.params.id
 		]
 	);
 	res.redirect(`/books/${req.params.id}`);
 });
 
 //DELETE A CURRENT BOOK
-//TODO://DELETE route - deletes the book and redirects to all books page
+//DELETE route - deletes the book and redirects to all books page
+router.delete('/books/:id', urlencodedParser, (req, res) => {
+	db.run('DELETE FROM books WHERE book_id =?', [ req.params.id ]);
+	res.redirect('/books');
+});
 
 //////////////////////////////////////// COMMENT ROUTES ///////////////////////
 //ADD A NEW BOOK REVIEW COMMENT
