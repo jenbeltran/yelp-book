@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
 //SEE ALL BOOKS
 //INDEX route
 router.get('/books', (req, res) => {
-	db.all('SELECT * FROM books', function(err, bookData) {
+	db.all('SELECT * FROM books', (err, bookData) => {
 		res.render('books/books', {
 			bookData : bookData
 		});
@@ -66,25 +66,31 @@ router.post('/books', urlencodedParser, (req, res) => {
 
 //SEE BOOK DETAILS
 //SHOW route
-router.get('/books/:id', (req, res) => {
-	db.all('SELECT * FROM books', function(err, bookData) {
+router.get('/books/:id', urlencodedParser, (req, res) => {
+	db.all('SELECT * FROM books WHERE book_id =?', [ req.params.id ], (err, bookData) => {
 		res.render('books/showBookDetails', {
 			bookData : bookData
 		});
 	});
 });
 
-//test route
-router.get('/test/:id', (req, res) => {
-	db.all('SELECT * FROM books', function(err, bookData) {
-		res.render('test', {
+//UPDATE A CURRENT BOOK
+//EDIT route - shows the edit book form
+// router.get('/books/:id/edit', (req, res) => {
+// 	db.all('SELECT * FROM books', (err, bookData) => {
+// 		res.render('books/editBookForm', {
+// 			bookData : bookData
+// 		});
+// 	});
+// });
+
+router.get('/books/:id/edit', urlencodedParser, (req, res) => {
+	db.all('SELECT * FROM books WHERE book_id =?', [ req.params.id ], (err, bookData) => {
+		res.render('books/editBookForm', {
 			bookData : bookData
 		});
 	});
 });
-
-//UPDATE A CURRENT BOOK
-//TODO://EDIT route - shows the edit book form
 
 //TODO://UPDATE route - updates the book and redirects to all books page
 
