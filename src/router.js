@@ -7,7 +7,10 @@ let express = require('express'),
 	sqlite3 = require('sqlite3').verbose(),
 	db = new sqlite3.Database('database/books.sqlite'),
 	bodyParser = require('body-parser'),
-	urlencodedParser = bodyParser.urlencoded({ extended: false });
+	urlencodedParser = bodyParser.urlencoded({ extended: false }),
+	methodOverride = require('method-override');
+
+router.use(methodOverride('_method'));
 
 ///////////////////////// AUTHENTICATION ROUTES //////////////////////////
 // LOGIN ROUTE
@@ -76,14 +79,6 @@ router.get('/books/:id', urlencodedParser, (req, res) => {
 
 //UPDATE A CURRENT BOOK
 //EDIT route - shows the edit book form
-// router.get('/books/:id/edit', (req, res) => {
-// 	db.all('SELECT * FROM books', (err, bookData) => {
-// 		res.render('books/editBookForm', {
-// 			bookData : bookData
-// 		});
-// 	});
-// });
-
 router.get('/books/:id/edit', urlencodedParser, (req, res) => {
 	db.all('SELECT * FROM books WHERE book_id =?', [ req.params.id ], (err, bookData) => {
 		res.render('books/editBookForm', {
@@ -93,6 +88,22 @@ router.get('/books/:id/edit', urlencodedParser, (req, res) => {
 });
 
 //TODO://UPDATE route - updates the book and redirects to all books page
+router.post('/books/:id', urlencodedParser, (req, res) => {
+	db.run(
+		'UPDATE books SET title =?, author_fname=?, author_lname=?, category=?, release_year=?, pages=?, price=?, picture=? WHERE book_id=?',
+		[
+			req.body.title,
+			req.body.author_fname,
+			req.body.author_lname,
+			req.body.category,
+			req.body.release_year,
+			req.body.pages,
+			req.body.price,
+			req.body.picture
+		]
+	);
+	res.redirect(`/books/${req.params.id}`);
+});
 
 //DELETE A CURRENT BOOK
 //TODO://DELETE route - deletes the book and redirects to all books page

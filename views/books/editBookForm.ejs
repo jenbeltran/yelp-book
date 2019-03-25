@@ -6,7 +6,7 @@
 
 <% for(let i=0; i < bookData.length; i++) {%>
 <div class="container card bg-light" style="width: 40rem;">
-    <form action="/books/:id" method="PUT">
+    <form action="/books/<%bookData[i].book_id%>" method="POST">
         <div class="form-group">
             <label>Book Title</label>
             <input type="text" name="title" class="form-control" value="<%= bookData[i].title %>">
