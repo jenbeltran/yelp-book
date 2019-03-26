@@ -4,8 +4,8 @@
 
 
 <div class="container">
-    
-        <img style="width: 18rem;" src="<%=bookData[i].picture %>"> 
+    <img id="book-detail-img" style="width: 18rem;" src="<%=bookData[i].picture %>">
+         
         <div class="card-body d-inline-block">
             <h5><%= bookData[i].title %></h5>
             <p> Author: <%= bookData[i].author_fname%> <%= bookData[i].author_lname %></p>
@@ -16,11 +16,25 @@
             <a href="/books/<%= bookData[i].book_id%>/edit" class="btn btn-outline-warning">Edit Book</a>
             <form action="/books/<%= bookData[i].book_id %>?_method=DELETE" method="POST">
             <button type="submit" class="btn btn-outline-danger">Delete Book</button>
-            </form>
-        </div>
-    
+            </form>            
+        </div>  
 </div>
 
+<div class="container">
+                <h5>Add a comment</h5>
+    <div class="card">
+        
+        <div class="card-body bg-light">
+            <p><%= bookData[i].comment_text %></p>
+        </div>
+    </div>
+    <form>
+        <div class="form-group">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <button type="submit" class="btn btn-outline-primary">Submit</button>
+        </div>
+    </form>
+</div>
        
 
 

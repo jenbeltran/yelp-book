@@ -7,7 +7,7 @@ CREATE TABLE books
         category VARCHAR(100),
         release_year INTEGER,
         pages INTEGER,
-        price DECIMAL,
+        price DECIMAL(5,2),
         picture BLOB
     );
 

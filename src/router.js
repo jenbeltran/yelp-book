@@ -13,18 +13,18 @@ let express = require('express'),
 router.use(methodOverride('_method'));
 
 ///////////////////////// AUTHENTICATION ROUTES //////////////////////////
+//REGISTER ROUTE
+router.get('/register', (req, res) => {
+	res.render('authentication/register');
+});
+//TODO: add the user to the db, then continue to secret INDEX page
+
 // LOGIN ROUTE
 router.get('/login', (req, res) => {
 	res.render('authentication/login');
 });
 //TODO: check if user is in db, if so, then continue to secret INDEX page
 //if not, then refresh the login page
-
-//REGISTER ROUTE
-router.get('/register', (req, res) => {
-	res.render('authentication/register');
-});
-//TODO: add the user to the db, then continue to secret INDEX page
 
 ///////////////////////// BOOK ROUTES //////////////////////////
 //LANDING PAGE
@@ -70,11 +70,15 @@ router.post('/books', urlencodedParser, (req, res) => {
 //SEE BOOK DETAILS
 //SHOW route
 router.get('/books/:id', urlencodedParser, (req, res) => {
-	db.all('SELECT * FROM books WHERE book_id =?', [ req.params.id ], (err, bookData) => {
-		res.render('books/showBookDetails', {
-			bookData : bookData
-		});
-	});
+	db.all(
+		'Select * FROM books JOIN comments ON comments.book_id = books.book_id WHERE books.book_id =?',
+		[ req.params.id ],
+		(err, bookData) => {
+			res.render('books/showBookDetails', {
+				bookData : bookData
+			});
+		}
+	);
 });
 
 //UPDATE A CURRENT BOOK
@@ -114,15 +118,25 @@ router.delete('/books/:id', urlencodedParser, (req, res) => {
 });
 
 //////////////////////////////////////// COMMENT ROUTES ///////////////////////
-//ADD A NEW BOOK REVIEW COMMENT
-//NEW route - shows the new comment form
-// router.get('/books/new', function(req, res) {
-// 	res.render('commentForm');
-// });
+//See all comments in book details
+//INDEX route
 
 //TODO://CREATE route - creates the new book review and redirects to '/books/:id'
-// router.post('/books/:id'', function(req, res) {
-// 	res.redirect('/books/:id);
+// router.post('/books/:id', urlencodedParser, (req, res) => {
+//     db.run(
+//         'INSERT INTO books(title, author_fname, author_lname, category, release_year, pages, price, picture) VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
+//         [
+//             req.body.title,
+//             req.body.author_fname,
+//             req.body.author_lname,
+//             req.body.category,
+//             req.body.release_year,
+//             req.body.pages,
+//             req.body.price,
+//             req.body.picture
+//         ]
+//     );
+//     res.redirect('/books');
 // });
 
 //UPDATE A CURRENT BOOK REVIEW

@@ -1,0 +1,13 @@
+CREATE TABLE comments
+    (
+        comment_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        comment_text VARCHAR(500),
+        book_id INT,
+        user_id INT,
+        FOREIGN KEY(user_id) REFERENCES users(user_id),
+        FOREIGN KEY(book_id) REFERENCES books(book_id)
+    );
+
+INSERT INTO comments(comment_text, book_id, user_id)
+VALUES
+('This book was amazing', 1, 1);
