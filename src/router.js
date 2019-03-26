@@ -67,18 +67,14 @@ router.post('/books', urlencodedParser, (req, res) => {
 	res.redirect('/books');
 });
 
-//SEE BOOK DETAILS
+//SEE BOOK DETAILS AND COMMENTS
 //SHOW route
 router.get('/books/:id', urlencodedParser, (req, res) => {
-	db.all(
-		'Select * FROM books JOIN comments ON comments.book_id = books.book_id WHERE books.book_id =?',
-		[ req.params.id ],
-		(err, bookData) => {
-			res.render('books/showBookDetails', {
-				bookData : bookData
-			});
-		}
-	);
+	db.all('SELECT * FROM books WHERE book_id =?', [ req.params.id ], (err, bookData) => {
+		res.render('books/showBookDetails', {
+			bookData : bookData
+		});
+	});
 });
 
 //UPDATE A CURRENT BOOK
@@ -91,7 +87,7 @@ router.get('/books/:id/edit', urlencodedParser, (req, res) => {
 	});
 });
 
-//UPDATE route - updates the book and redirects to all books page
+//UPDATE route - updates the book and redirects to book details page
 router.put('/books/:id', urlencodedParser, (req, res) => {
 	db.run(
 		'UPDATE books SET title =?, author_fname=?, author_lname=?, category=?, release_year=?, pages=?, price=?, picture=? WHERE book_id=?',
@@ -116,42 +112,6 @@ router.delete('/books/:id', urlencodedParser, (req, res) => {
 	db.run('DELETE FROM books WHERE book_id =?', [ req.params.id ]);
 	res.redirect('/books');
 });
-
-//////////////////////////////////////// COMMENT ROUTES ///////////////////////
-//See all comments in book details
-//INDEX route
-
-//TODO://CREATE route - creates the new book review and redirects to '/books/:id'
-// router.post('/books/:id', urlencodedParser, (req, res) => {
-//     db.run(
-//         'INSERT INTO books(title, author_fname, author_lname, category, release_year, pages, price, picture) VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
-//         [
-//             req.body.title,
-//             req.body.author_fname,
-//             req.body.author_lname,
-//             req.body.category,
-//             req.body.release_year,
-//             req.body.pages,
-//             req.body.price,
-//             req.body.picture
-//         ]
-//     );
-//     res.redirect('/books');
-// });
-
-//UPDATE A CURRENT BOOK REVIEW
-//TODO://EDIT route - shows the edit book review form
-// router.get('/books/:id', function(req, res) {
-// 	res.render('edit');
-// });
-
-//TODO://UPDATE route - updates the book and redirects to /books/:id' page
-
-//DELETE A CURRENT BOOK REVIEW
-//TODO://DELETE route - deletes the book review and redirects to all books page
-// router.delete('/books/:id', function(req, res) {
-// 	res.redirect('/books');
-// });
 
 //export
 module.exports = router;

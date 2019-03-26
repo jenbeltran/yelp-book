@@ -1,8 +1,6 @@
 <%- include('../partials/header'); -%>
 
 <% for(let i=0; i < bookData.length; i++) {%>
-
-
 <div class="container">
     <img id="book-detail-img" style="width: 18rem;" src="<%=bookData[i].picture %>">
          
@@ -17,30 +15,8 @@
             <form action="/books/<%= bookData[i].book_id %>?_method=DELETE" method="POST">
             <button type="submit" class="btn btn-outline-danger">Delete Book</button>
             </form>            
-        </div>  
+        </div> 
 </div>
-
-<div class="container">
-                <h5>Add a comment</h5>
-    <div class="card">
-        
-        <div class="card-body bg-light">
-            <p><%= bookData[i].comment_text %></p>
-        </div>
-    </div>
-    <form>
-        <div class="form-group">
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            <button type="submit" class="btn btn-outline-primary">Submit</button>
-        </div>
-    </form>
-</div>
-       
-
-
 <% } %>
-
-
-
 
 <%- include('../partials/footer'); -%>
