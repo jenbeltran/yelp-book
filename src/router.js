@@ -14,8 +14,12 @@ router.use(methodOverride('_method'));
 
 ///////////////////////// AUTHENTICATION ROUTES //////////////////////////
 //REGISTER ROUTE
-router.get('/register', (req, res) => {
-	res.render('authentication/register');
+router.get('/register', (req, res, err) => {
+	try {
+		res.render('authentication/register');
+	} catch (err) {
+		res.render('errorPage');
+	}
 });
 //TODO: add the user to the db, then continue to secret INDEX page
 
@@ -111,6 +115,10 @@ router.put('/books/:id', urlencodedParser, (req, res) => {
 router.delete('/books/:id', urlencodedParser, (req, res) => {
 	db.run('DELETE FROM books WHERE book_id =?', [ req.params.id ]);
 	res.redirect('/books');
+});
+
+router.get('/oops', (req, res) => {
+	res.render('errorPage');
 });
 
 //export
