@@ -24,8 +24,12 @@ router.get('/register', (req, res, err) => {
 //TODO: add the user to the db, then continue to secret INDEX page
 
 // LOGIN ROUTE
-router.get('/login', (req, res) => {
-	res.render('authentication/login');
+router.get('/login', (req, res, err) => {
+	try {
+		res.render('authentication/login');
+	} catch (err) {
+		res.render('errorPage');
+	}
 });
 //TODO: check if user is in db, if so, then continue to secret INDEX page
 //if not, then refresh the login page
@@ -33,24 +37,35 @@ router.get('/login', (req, res) => {
 ///////////////////////// BOOK ROUTES //////////////////////////
 //LANDING PAGE
 //INDEX route
-router.get('/', (req, res) => {
-	res.render('books/landing');
+router.get('/', (req, res, err) => {
+	try {
+		res.render('books/landing');
+	} catch (err) {
+		res.render('errorPage');
+	}
 });
 
 //SEE ALL BOOKS
 //INDEX route
 router.get('/books', (req, res) => {
 	db.all('SELECT * FROM books', (err, bookData) => {
-		res.render('books/books', {
-			bookData : bookData
-		});
+		if (err) next(err);
+		else {
+			res.render('books/books', {
+				bookData : bookData
+			});
+		}
 	});
 });
 
 //ADD A NEW BOOK
 //NEW route - shows the new book form
-router.get('/books/new', (req, res) => {
-	res.render('books/newBookForm');
+router.get('/books/new', (req, res, err) => {
+	try {
+		res.render('books/newBookForm');
+	} catch (err) {
+		res.render('errorPage');
+	}
 });
 
 //CREATE route - creates the new book and redirects to all books page
@@ -66,18 +81,26 @@ router.post('/books', urlencodedParser, (req, res) => {
 			req.body.pages,
 			req.body.price,
 			req.body.picture
-		]
+		],
+		(err) => {
+			if (err) next(err);
+			else {
+				res.redirect('/books');
+			}
+		}
 	);
-	res.redirect('/books');
 });
 
 //SEE BOOK DETAILS AND COMMENTS
 //SHOW route
 router.get('/books/:id', urlencodedParser, (req, res) => {
 	db.all('SELECT * FROM books WHERE book_id =?', [ req.params.id ], (err, bookData) => {
-		res.render('books/showBookDetails', {
-			bookData : bookData
-		});
+		if (err) next(err);
+		else {
+			res.render('books/showBookDetails', {
+				bookData : bookData
+			});
+		}
 	});
 });
 
@@ -85,9 +108,12 @@ router.get('/books/:id', urlencodedParser, (req, res) => {
 //EDIT route - shows the edit book form
 router.get('/books/:id/edit', urlencodedParser, (req, res) => {
 	db.all('SELECT * FROM books WHERE book_id =?', [ req.params.id ], (err, bookData) => {
-		res.render('books/editBookForm', {
-			bookData : bookData
-		});
+		if (err) next(err);
+		else {
+			res.render('books/editBookForm', {
+				bookData : bookData
+			});
+		}
 	});
 });
 
@@ -105,18 +131,28 @@ router.put('/books/:id', urlencodedParser, (req, res) => {
 			req.body.price,
 			req.body.picture,
 			req.params.id
-		]
+		],
+		(err) => {
+			if (err) next(err);
+			else {
+				res.redirect(`/books/${req.params.id}`);
+			}
+		}
 	);
-	res.redirect(`/books/${req.params.id}`);
 });
 
 //DELETE A CURRENT BOOK
 //DELETE route - deletes the book and redirects to all books page
 router.delete('/books/:id', urlencodedParser, (req, res) => {
-	db.run('DELETE FROM books WHERE book_id =?', [ req.params.id ]);
-	res.redirect('/books');
+	db.run('DELETE FROM books WHERE book_id =?', [ req.params.id ], (err) => {
+		if (err) next(err);
+		else {
+			res.redirect('/books');
+		}
+	});
 });
 
+//Design purposes only - error page
 router.get('/oops', (req, res) => {
 	res.render('errorPage');
 });
