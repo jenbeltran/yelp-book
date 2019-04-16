@@ -2,7 +2,7 @@ CREATE TABLE users
     (
         user_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         username VARCHAR(20),
-        password VARCHAR(20),
+        password VARCHER(500),
         user_fname VARCHAR(100),
         user_lname VARCHAR(100),
         email VARCHAR(100)

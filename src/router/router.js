@@ -29,9 +29,11 @@ let deleteBookRoute = require('./books/deleteBook');
 
 // Login Page
 router.get('/login', loginRoute.get);
+router.post('/login', loginRoute.post);
 
 // Register Page
 router.get('/register', registerRoute.get);
+router.post('/register', registerRoute.post);
 
 // Landing page
 router.get('/', landingRoute.get);
