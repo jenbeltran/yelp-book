@@ -13,8 +13,9 @@ const saltRounds = 10;
 //NEW route - shows the register form
 function getRegisterRoute(req, res) {
 	res.render('authentication/register', {
-		pageId : 'register',
-		title  : 'YelpBook | Register'
+		username : req.session.username,
+		pageId   : 'register',
+		title    : 'YelpBook | Register'
 	});
 }
 
@@ -27,11 +28,12 @@ function postRegisterRoute(req, res, next) {
 			(err) => {
 				if (err) next(err);
 				else {
-					console.log(hash);
+					req.session.username = req.body.username;
 					res.redirect('/books');
 				}
 			}
 		);
+		console.log(req.session);
 	});
 }
 

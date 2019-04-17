@@ -12,6 +12,7 @@ function getAllBooksRoute(req, res, next) {
 		if (err) next(err);
 		else {
 			res.render('books/books', {
+				username : req.session.username,
 				bookData : bookData,
 				pageId   : 'books',
 				title    : 'YelpBook | All Books'

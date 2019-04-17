@@ -7,8 +7,9 @@
 
 function getLandingRoute(req, res) {
 	res.render('books/landing', {
-		pageId : 'landing',
-		title  : 'Welcome to YelpBook'
+		username : req.session.username,
+		pageId   : 'landing',
+		title    : 'Welcome to YelpBook'
 	});
 }
 

@@ -12,6 +12,7 @@ function showBookDetailsRoute(req, res, next) {
 		if (err) next(err);
 		else {
 			res.render('books/showBookDetails', {
+				username : req.session.username,
 				bookData : bookData,
 				pageId   : 'showBookDetails',
 				title    : 'YelpBook | Book Details'

@@ -2,6 +2,12 @@
 	margin-bottom: 2em;
 }
 
+.navbar-greeting {
+	margin: auto;
+	padding-right: 1em;
+	font-size: 18px;
+}
+
 .form-title {
 	text-align: center;
 }

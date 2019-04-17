@@ -12,8 +12,9 @@ const bcrypt = require('bcrypt');
 //NEW route - shows the login form
 function getLoginRoute(req, res) {
 	res.render('authentication/login', {
-		pageId : 'login',
-		title  : 'YelpBook | Login'
+		username : req.session.username,
+		pageId   : 'login',
+		title    : 'YelpBook | Login'
 	});
 }
 

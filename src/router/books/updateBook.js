@@ -15,6 +15,7 @@ function showEditBookFormRoute(req, res, next) {
 		if (err) next(err);
 		else {
 			res.render('books/editBookForm', {
+				username : req.session.username,
 				bookData : bookData,
 				pageId   : 'editBookForm',
 				title    : 'YelpBook | Edit Book Details'

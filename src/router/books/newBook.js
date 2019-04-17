@@ -10,8 +10,9 @@ let db = new sqlite3.Database('database/books.sqlite');
 function addNewBookRoute(req, res) {
 	try {
 		res.render('books/newBookForm', {
-			pageId : 'newBook',
-			title  : 'YelpBook | Add a Book'
+			username : req.session.username,
+			pageId   : 'newBook',
+			title    : 'YelpBook | Add a Book'
 		});
 	} catch (err) {
 		res.render('errorPage');
