@@ -13,6 +13,7 @@ router.use(methodOverride('_method'));
 
 //Adding authentication route functions
 let loginRoute = require('./authentication/login');
+let logoutRoute = require('./authentication/logout');
 let registerRoute = require('./authentication/register');
 
 //Adding book route functions
@@ -30,6 +31,9 @@ let deleteBookRoute = require('./books/deleteBook');
 // Login Page
 router.get('/login', loginRoute.get);
 router.post('/login', loginRoute.post);
+
+// Logout
+router.get('/logout', logoutRoute.get);
 
 // Register Page
 router.get('/register', registerRoute.get);

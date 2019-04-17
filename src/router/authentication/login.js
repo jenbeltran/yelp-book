@@ -23,12 +23,18 @@ function postLoginRoute(req, res, next) {
 	db.all('SELECT password FROM users where username=?', [ req.body.username ], (err, dbHash) => {
 		if (err) next(err);
 		else {
-			console.log(dbHash[0].password);
 			//compare hashed password from database to hashed req.body.password in form
-			if (bcrypt.compare(req.body.password, dbHash[0].password)) {
-				res.redirect('/books');
-				console.log('matched!');
-			}
+			return bcrypt.compare(req.body.password, dbHash[0].password).then((isValid) => {
+				// If invalid respond with authentication failure
+				if (!isValid) {
+					res.redirect('/login');
+					// Else log the user in and redirect to home page
+				} else {
+					req.session.username = req.body.username;
+					res.redirect('/books');
+				}
+				console.log(req.session);
+			});
 		}
 	});
 }

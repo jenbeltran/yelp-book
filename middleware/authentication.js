@@ -3,9 +3,10 @@
 /**
  *
  */
-module.exports = function authenticationMiddleware(req, res, next) {
+//check if a user is logged in
+module.exports = function isLoggedIn(req, res, next) {
 	if (!req.session.username) {
-		res.status(401).render('errorPage');
+		res.redirect('/login');
 	} else {
 		next();
 	}

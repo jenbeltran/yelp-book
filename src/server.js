@@ -12,17 +12,14 @@ let express = require('express'),
 // Create an instance of an express application
 const app = express();
 
-// Parse all incoming <form> data into an object we can access in our routes with `req.body`
-app.use(express.urlencoded({ extended: true }));
-
-//Connects all routes
-app.use(router);
-
 //Allows HTML page rendering
 app.set('view engine', 'ejs');
 
 //Allows CSS
 app.use(express.static('public'));
+
+// Parse all incoming <form> data into an object we can access in our routes with `req.body`
+app.use(express.urlencoded({ extended: true }));
 
 //Express Session middleware
 app.use(
@@ -40,6 +37,12 @@ app.use(
 // Middleware to prepare default values for sessions
 // This must come after the session middleware to ensure its values are set properly
 app.use(defaultSessionValues);
+
+//Connects all routes
+app.use(router);
+
+// isLoggedIn - authentication middleware
+app.use(authentication);
 
 //Checks errors as middleware
 app.use(defaultErrorHandler);

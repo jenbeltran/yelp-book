@@ -9,9 +9,6 @@ let db = new sqlite3.Database('database/books.sqlite');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-//Adding argon2
-const argon2 = require('argon2');
-
 //REGISTER ROUTE
 //NEW route - shows the register form
 function getRegisterRoute(req, res) {
