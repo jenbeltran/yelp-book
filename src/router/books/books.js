@@ -18,7 +18,8 @@ function getAllBooksRoute(req, res, next) {
 					username : req.session.username,
 					bookData : bookData,
 					pageId   : 'books',
-					title    : 'YelpBook | All Books'
+					title    : 'YelpBook | All Books',
+					message  : req.flash('success')
 				});
 			}
 		});

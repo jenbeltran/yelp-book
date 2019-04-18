@@ -10,8 +10,8 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"argon2": "^0.21.0",
 		"bcrypt": "^3.0.6",
+		"connect-flash": "^0.1.1",
 		"dotenv": "^7.0.0",
 		"ejs": "^2.6.1",
 		"express": "^4.16.4",

@@ -5,6 +5,7 @@ require('dotenv').config(); // Run this first to ensure all environment variable
 let express = require('express'),
 	router = require('./router/router'),
 	session = require('express-session'),
+	flash = require('connect-flash'),
 	defaultSessionValues = require('../middleware/default-session-values'),
 	authentication = require('../middleware/authentication'),
 	defaultErrorHandler = require('../middleware/errorHandler');
@@ -33,6 +34,14 @@ app.use(
 		}
 	})
 );
+
+//Connecting flash
+app.use(flash());
+app.use(function(req, res, next) {
+	res.locals.error = req.flash('error');
+	res.locals.success = req.flash('success');
+	next();
+});
 
 // Middleware to prepare default values for sessions
 // This must come after the session middleware to ensure its values are set properly

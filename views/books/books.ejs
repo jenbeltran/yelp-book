@@ -1,5 +1,11 @@
 <%- include('../partials/header'); -%>
 
+<% if(success && success.length > 0) { %>
+<div class="alert alert-success" role="alert">
+    <%= success %>
+</div>
+<% } %>
+
 <div class="container">
     <div class="jumbotron">
         <h1 class="display-5">YelpBook</h1>
