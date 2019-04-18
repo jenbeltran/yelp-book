@@ -1,13 +1,9 @@
 CREATE TABLE users
     (
         user_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        username VARCHAR(20),
-        password VARCHER(500),
-        user_fname VARCHAR(100),
-        user_lname VARCHAR(100),
-        email VARCHAR(100)
+        username VARCHAR(20) NOT NULL,
+        password VARCHER(500) NOT NULL,
+        user_fname VARCHAR(100) NOT NULL,
+        user_lname VARCHAR(100) NOT NULL,
+        email VARCHAR(100) NOT NULL
     );
-
-INSERT INTO users(username, password, user_fname, user_lname, email)
-VALUES
-('j3nx2', 'password', 'Jen', 'Beltran', 'jen@yorku.ca');

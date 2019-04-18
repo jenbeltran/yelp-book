@@ -21,23 +21,30 @@ function getLoginRoute(req, res) {
 
 // POST route - checks DB to ensure user is on file
 function postLoginRoute(req, res, next) {
-	// pull password from database
-	db.all('SELECT password FROM users where username=?', [ req.body.username ], (err, dbHash) => {
-		if (err) next(err);
-		else {
-			//compare hashed password from database to hashed req.body.password in form
-			return bcrypt.compare(req.body.password, dbHash[0].password).then((isValid) => {
-				// If invalid respond with authentication failure
-				if (!isValid) {
-					req.flash('error', 'Incorrect login information');
-					res.redirect('/login');
-					// Else log the user in and redirect to home page
-				} else {
-					req.session.username = req.body.username;
-					req.flash('success', 'You have successfully logged in');
-					res.redirect('/books');
+	db.all('SELECT username FROM users where username=?', [ req.body.username ], (err, dbUsername) => {
+		if (dbUsername < 1 || dbUsername == undefined) {
+			req.flash('error', 'Incorrect username');
+			res.redirect('/login');
+		} else {
+			// pull password from database
+			db.all('SELECT password FROM users where username=?', [ req.body.username ], (err, dbHash) => {
+				if (err) next(err);
+				else {
+					//compare hashed password from database to hashed req.body.password in form
+					return bcrypt.compare(req.body.password, dbHash[0].password).then((passwordValid) => {
+						// If invalid respond with authentication failure
+						if (!passwordValid) {
+							req.flash('error', 'Incorrect password');
+							res.redirect('/login');
+							// Else log the user in and redirect to home page
+						} else {
+							req.session.username = req.body.username;
+							req.flash('success', 'You have successfully logged in');
+							res.redirect('/books');
+						}
+						console.log(req.session);
+					});
 				}
-				console.log(req.session);
 			});
 		}
 	});
