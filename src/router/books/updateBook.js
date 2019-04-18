@@ -11,17 +11,21 @@ let db = new sqlite3.Database('database/books.sqlite');
 //UPDATE A CURRENT BOOK
 //EDIT route - shows the edit book form
 function showEditBookFormRoute(req, res, next) {
-	db.all('SELECT * FROM books WHERE book_id =?', [ req.params.id ], (err, bookData) => {
-		if (err) next(err);
-		else {
-			res.render('books/editBookForm', {
-				username : req.session.username,
-				bookData : bookData,
-				pageId   : 'editBookForm',
-				title    : 'YelpBook | Edit Book Details'
-			});
-		}
-	});
+	if (!req.session.username) {
+		res.render('errorPage');
+	} else {
+		db.all('SELECT * FROM books WHERE book_id =?', [ req.params.id ], (err, bookData) => {
+			if (err) next(err);
+			else {
+				res.render('books/editBookForm', {
+					username : req.session.username,
+					bookData : bookData,
+					pageId   : 'editBookForm',
+					title    : 'YelpBook | Edit Book Details'
+				});
+			}
+		});
+	}
 }
 
 //UPDATE route - updates the book and redirects to book details page

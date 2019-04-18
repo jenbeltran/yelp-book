@@ -8,12 +8,16 @@ let db = new sqlite3.Database('database/books.sqlite');
 //DELETE A CURRENT BOOK
 //DELETE route - deletes the book and redirects to all books page
 function deleteBookRoute(req, res, next) {
-	db.run('DELETE FROM books WHERE book_id =?', [ req.params.id ], (err) => {
-		if (err) next(err);
-		else {
-			res.redirect('/books');
-		}
-	});
+	if (!req.session.username) {
+		res.render('errorPage');
+	} else {
+		db.run('DELETE FROM books WHERE book_id =?', [ req.params.id ], (err) => {
+			if (err) next(err);
+			else {
+				res.redirect('/books');
+			}
+		});
+	}
 }
 
 module.exports = { delete: deleteBookRoute };

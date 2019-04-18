@@ -8,14 +8,14 @@ let db = new sqlite3.Database('database/books.sqlite');
 //ADD A NEW BOOK
 //NEW route - shows the new book form
 function addNewBookRoute(req, res) {
-	try {
+	if (!req.session.username) {
+		res.render('errorPage');
+	} else {
 		res.render('books/newBookForm', {
 			username : req.session.username,
 			pageId   : 'newBook',
 			title    : 'YelpBook | Add a Book'
 		});
-	} catch (err) {
-		res.render('errorPage');
 	}
 }
 
